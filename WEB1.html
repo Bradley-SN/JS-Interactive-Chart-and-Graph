@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Web Page with Chart.js</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        canvas {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Simple Calculator and Chart.js Example</h1>
+
+    <p>Enter two numbers:</p>
+    <input type="number" id="num1" placeholder="First number">
+    <input type="number" id="num2" placeholder="Second number">
+    
+    <div>
+        <button id="addButton">Add</button>
+        <button id="subtractButton">Subtract</button>
+        <button id="multiplyButton">Multiply</button>
+        <button id="divideButton">Divide</button>
+    </div>
+
+    <p class="result" id="result">Result will be shown here</p>
+
+    <h2>Sample Chart Using Chart.js</h2>
+    <canvas id="myChart" width="400" height="200"></canvas>
+
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- JavaScript code for interactivity -->
+    <script>
+        // Declare variables of different data types
+        let greeting = "Hello, world!";  // string
+        let number1 = 10;                // number
+        let isPositive = true;           // boolean
+
+        // Define basic arithmetic functions
+        function add(a, b) {
+            return a + b;
+        }
+
+        function subtract(a, b) {
+            return a - b;
+        }
+
+        function multiply(a, b) {
+            return a * b;
+        }
+
+        function divide(a, b) {
+            if (b === 0) {
+                return 'Error: Division by zero';
+            }
+            return a / b;
+        }
+
+        // DOM manipulation for calculator functionality
+        document.getElementById('addButton').addEventListener('click', function() {
+            calculate(add);
+        });
+
+        document.getElementById('subtractButton').addEventListener('click', function() {
+            calculate(subtract);
+        });
+
+        document.getElementById('multiplyButton').addEventListener('click', function() {
+            calculate(multiply);
+        });
+
+        document.getElementById('divideButton').addEventListener('click', function() {
+            calculate(divide);
+        });
+
+        // Function to perform calculations based on user input
+        function calculate(operation) {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+
+            if (isNaN(num1) || isNaN(num2)) {
+                document.getElementById('result').textContent = "Please enter valid numbers.";
+                return;
+            }
+
+            const result = operation(num1, num2);
+            document.getElementById('result').textContent = `Result: ${result}`;
+        }
+
+        // Chart.js setup to render a sample chart
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May'],
+                datasets: [{
+                    label: 'Sales',
+                    data: [12, 19, 3, 5, 2],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
